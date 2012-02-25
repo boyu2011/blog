@@ -1,0 +1,24 @@
+%p#notice= notice
+
+= render :partial => @post
+
+%p Comments
+- @post.comments.each do |comment|
+	%p Commenter:
+	%p= comment.commenter
+	%p Body:
+	%p= comment.body
+
+=form_for [@post, @post.comments.build] do |f|
+	.field
+		=f.label :commenter
+		=f.text_field :commenter
+	.field
+		=f.label :body
+		=f.text_area :body, :size => "20*5", :class => "input-xxlarge"
+	.actions
+		=f.submit
+
+= link_to 'Edit', edit_post_path(@post)
+\|
+= link_to 'Back', posts_path
